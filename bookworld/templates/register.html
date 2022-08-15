@@ -1,24 +1,24 @@
 {% extends 'index.html' %}
 {%load static %}
-{%block login%}
-<div class="lbox">
-    <a href="login" class="text-decoration-none text-white" >
-    <i class="fa-solid fa-user"></i>&nbsp;&nbsp; Log In
-    </a>
-</div>
-{%endblock%}
+
 {% block content %}
 <div class="container-fluid box1">
     <div class="row">
         <div class="col-md-12 logbigbox">
     <div class="col-md-5  logbox">
         <div class="col-md-11 sublogbox">
-
+            <div class="row">
+                <div class="col-12 mb-3 d-flex justify-content-center">
+                    <span class="adminpanelsubhead">
+                        REGISTER HERE
+                    </span>
+                </div>
+            </div>
             <form action=" " method="POST" id="regform">
                 {% csrf_token %}
                 <input type="text" name="firstname" id="firstname_id" placeholder="First name" class="form-control" onkeyup="validateFName()">
                 <span id="fname-error"></span><br>
-                <input type="text" name="secondname" id="lastname_id" placeholder="Last name" class="form-control" onkeyup="validateLName()">
+                <input type="text" name="lastname" id="lastname_id" placeholder="Last name" class="form-control" onkeyup="validateLName()">
                 <span id="lname-error"></span><br>
                 <input type="number" name="phone" id="phone_id" placeholder="Phone" class="form-control" onkeyup="validatePhone()">
                 <span id="phone-error"></span><br>
@@ -29,10 +29,12 @@
 
                 <input type="password" name="password2" id="password2_id" placeholder="Conform Password" class="form-control" onfocusout="validatePass2()" onfocus="validatePass2focus()"  >
                 <span id="password2-error"></span><br>
-
-                <button type="submit" class="btn btn-primary" onclick="return validateForm()">Sign in</button>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                <button type="submit" class="btn border border-warning bg-secondary text-warning" onclick="return validateForm()">Sign in</button>
                 <span id="btn-Error"></span>
-                
+                </div>
+            </div>
             </form>
 
 

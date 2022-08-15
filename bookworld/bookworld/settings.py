@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,6 +28,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+TWILIO_ACCOUNT_SID = os.getenv("SKe0e3dd222eae9ef21029c04f5ddaab7b")
+TWILIO_AUTH_TOKEN = os.getenv("7ZI42X0QPRqOQ5axLfCppQOTBmhNS2Th")
+TWILIO_NUMBER = os.getenv("+12057842829")
+SMS_BROADCAST_TO_NUMBERS = [ 
+    "", # use the format +19735551234
+    "", 
+    "", 
+]
 
 # Application definition
 
@@ -39,6 +48,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
+    'admins',
+    'store',
+    'category',
+    'carts',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -123,9 +137,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 STATIC_ROOT  = os.path.join(BASE_DIR, 'staticfiles')
-
+MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media' 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODELS = "account.Account"
+CRISPY_TEMPLATE_PACK = 'bootstrap'

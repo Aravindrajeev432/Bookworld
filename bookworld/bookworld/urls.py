@@ -17,10 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from . import views
-
+from django.conf import settings
+from django.conf.urls.static import static
+from bookworld.settings import MEDIA_ROOT
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name='index'),
     path('home',views.index,name="home"),
     path('account/',include('account.urls')),
-]
+    # path('homepage',views.homepage,name="home"),
+    path('admins/',include('admins.urls')),
+    path('product/',include('store.urls')),
+    path('cart/',include('carts.urls')),
+    path('orders/',include('orders.urls')),
+    
+
+]+static(settings.MEDIA_URL,document_root=MEDIA_ROOT)

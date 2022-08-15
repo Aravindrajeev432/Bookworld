@@ -1,0 +1,133 @@
+{% extends 'admin/adminindex.html' %}
+
+
+{% block status %}
+
+
+    <div class="col-md-9 col-sm-12 ">
+        <div class="col-md-12 ">
+            <div class="row">
+                <div class="col-md-12">
+                  <span class="adminheadstatus fs-1 text-secondary">User Management</span>
+                </div>
+                </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="adminheadstatus">Total No of User:&nbsp<b>{{ usercount }}</b></span>
+                </div>
+                <div class="col-md-4">
+                    <span class="adminheadstatus">Active Users:&nbsp<b>{{ active_users_count }}</b></span>
+                </div>
+                <div class="col-md-4">
+                    <span class="adminheadstatus">Users Blocked:&nbsp<b>{{ blocked_users_count }}</b></span>
+                </div>
+            </div>
+
+
+        </div>
+        <br><div class="row">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <form action=" "  method="POST">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            
+                            <input type="text" name ="search" class="form-control" placeholder="Search by firstname" aria-label="search" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-sucsess bg-secondary text-warning" type="submit" id="button-addon2">Search</button>
+                        </div>
+                </form>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">No:</th>
+                            
+                            <th scope="col">First Name</th>
+                            
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone Number</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for acc in account %}
+
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ acc.first_name }}</td>
+                                <td>{{ acc.last_name }}</td>
+                                <td>{{ acc.email }}</td>
+                                <td>{{ acc.Phone_number }}</td>
+                                <td>
+
+                                    <a href="edit_user/{{ acc.id }}" class="text-decoration-none">
+                                        <button class="btn btn-secondary">View User</button>
+                                    </a>
+
+                                    {% if acc.is_blocked %}
+                                        <a href="unblock_user/{{ acc.id }}" class="text-decoration-none">
+                                            <button type="button" class="btn btn-success">UnBlock User</button>
+                                        </a>
+                                    {% else %}
+                                        <a href="block_user/{{ acc.id }}" class="text-decoration-none">
+                                            <button type="button" class="btn btn-secondary">Block User</button>
+                                        </a>
+                                    {% endif %}
+
+                                    <a href="delete_user/{{ acc.id }}" class="text-decoration-none">
+                                        <button type="button" class="btn btn-danger">Delete User</button>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 d-flex justify-content-end">
+                <div class="row d-flex justify-content-end">
+                    <div class="col-md-8 col-sm-8 d-flex justify-content-end">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                {% if not account.has_previous %}
+                                    {% else %}
+                                        <li class="page-item text-center">
+                                            <a class="page-link text-secondary
+                                                                                        border-warning" href="?page={{ account.previous_page_number }}">Previous</a>
+                                        </li>
+                                {% endif %}
+
+                                <li class="page-item text-secondary
+                                                                            border-warning disabled">
+                                    <a class="page-link
+                                                                                text-secondary border-warning
+                                                                                border-warning" href="#">{{ account.number }}
+                                        of
+                                        {{ account.paginator.num_pages }}</a>
+                                </li>
+                                {% if account.has_next %}
+
+
+                                    <li class="page-item border-warning">
+                                        <a class="page-link text-secondary
+                                                                                    border-warning" href="?page={{ account.next_page_number }}">Next</a>
+                                    </li>
+                                {% endif %}
+
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

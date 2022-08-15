@@ -1,70 +1,76 @@
 {% extends 'index.html' %}
 {% load static %}
-{% block register %}
-<div class="lbox">
-    <a href="register" class="text-decoration-none text-white">
-    <i class="fa-solid fa-lock"></i>&nbsp;&nbsp;  Register
-</a>
-</div>
-{% endblock %}
+
 {% block content %}
-<div class="container-fluid box1">
-    <div class="row">
-        <div class="col-md-12 logbigbox">
-    <div class="col-md-5  logbox">
-        <div class="col-md-11 sublogbox">
+    <div class="container-fluid box1">
+        <div class="row">
+            <div class="col-md-12 logbigbox">
+                <div class="col-md-5  logbox">
+                    <div class="col-md-11 sublogbox">
+                        <div class="row d-flex justify-content-center">
 
-            <form action="/" method="POST" id="logform">
-                {% csrf_token %}
-                <input type="email" name="email" id="email_id" placeholder="Email"  class="form-control">
-                <input type="password" name="password" id="password_id" placeholder="Password" class="form-control">
-                <input type="submit" value="Submit">
-                <h3 class="text-bg-danger" style="display:none ;" id="warning">Invalid Credential</h3>
-            </form>
+                            <div class="row d-flex justify-content-center">
+                                <form action="/" method="POST" id="logform">
+                                    {% csrf_token %}
+                                    <div class="row d-flex justify-content-center">
+                                        <span class="adminpanelsubhead">LOG IN</span>
+                                    </div>
+                                    <div class="row d-flex justify-content-center mt-4">
+                                    <input type="email" name="email" id="email_id" placeholder="Email" class="formcontrol bg-transparent" autocomplete="off">
+                                    </div>
+                                    <div class="row d-flex justify-content-center mt-4">
+                                        <input type="password" name="password" id="password_id" placeholder="Password" class="formcontrol bg-transparent" autocomplete="off"></div>
+                                    </div>
+                                        <div class="row d-flex justify-content-center mt-4">
+                                            <div class="col-4 d-flex justify-content-center">
+                                                <input type="submit" class="btn border border-warning bg-secondary text-warning" value="Submit"></div>
+                                                
+                                            </form>
+                                        </div>
+                                        <div class="row d-flex justify-content-center mt-4">
+                                            <div class="col-12 d-flex justify-content-center">
+                                            <h3 class="text-danger" style="display:none ;" id="warning">Invalid Credential</h3>
+                                            </div>
 
-
-        </div>
-    </div>
+                                        </div>
 </div>
-</div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-      $(document).on('submit','#logform',function(e)
-     {
-      e.preventDefault();
-      var email=$('#email_id').val()
-      var pass= $('#password_id').val() 
-      console.log(email,pass)
-      
-      $.ajax({
-        type:'POST',
-        url:'',
-        dataType:'json',
-        data:{
-          'email':email,
-          'pass':pass,
-          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
-        },
-        success:function(responce){
-          console.log(responce)
-          document.getElementById("warning").style.display="none";
-          if(responce.success==true){
-          window.location.replace('login')
-        }
-        else{
-          document.getElementById("warning").style.display="block";
-        }
-      }
-      })
-      
-    })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                    <script>
+                        $(document).on('submit', '#logform', function (e) {
+                            e.preventDefault();
+                            var email = $('#email_id').val()
+                            var pass = $('#password_id').val()
+                            console.log(email, pass)
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '',
+                                dataType: 'json',
+                                data: {
+                                    'email': email,
+                                    'pass': pass,
+                                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                                },
+                                success: function (responce) {
+                                    console.log(responce)
+                                    document.getElementById("warning").style.display = "none";
+                                    if (responce.success == true) {
+                                        window.location.replace('/home')
+                                    } 
+                                    
+                                    else {
+                                        document.getElementById("warning").style.display = "block";
+                                    }
+                                }
+                            })
+
+                        })
+                    </script>
 
 
-
-    </script>
-
-
-
-
-{% endblock%}
+                {% endblock %}

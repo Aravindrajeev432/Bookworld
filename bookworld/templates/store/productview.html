@@ -1,0 +1,144 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+
+
+
+
+
+
+
+
+{% block content %}
+{% for pro in product_detail %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-12">
+            <div class="row">
+                <div class="col-md-4 col-sm-12  bg-light">
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center align-content-center">
+                            <div id="img-container">
+                                <div id="lens"></div>
+                            <img id="featured" src="{{ pro.image.url }}">
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8  col-sm-12 bg-light">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="text-warning">
+                                                    
+                                {% for i in cat %}
+                                {% if pro.category_id == i.id %}
+                                    {{ i.category_name }}
+
+                                {% endif %}
+                            {% endfor %}</span>
+                        </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="producthead fs-1 text-secondary">{{pro.book_name}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span>by</span>
+                            <span class="authorhead">{{pro.author}}</span>
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="text-secondary">
+                                    Description :                    
+                                    </span>
+                            </div>
+                            </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="text-secondary productdescription">
+                                        {{pro.description}}                 
+                                    </span>
+                            </div>
+                            </div>
+                            <div class="row h-25 ">
+                                <div class="col-12 d-flex align-items-center fs-3">
+                                    <span class="text-secondary">
+                                        ₹ {{pro.price}}  /              
+                                        </span><sub class="text-secondary">piece</sub>
+                                       
+                                </div>
+                                </div>
+                           
+                                <!-- <div class="row">
+                                    <div class="col-12">
+                                        <span class="text-secondary ">
+                                            Quantity:<input type="number" class="form-control w-25" value="1">
+                                            </span>
+                                    </div> -->
+                                    <!-- </div> -->
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                   
+                                                {% if pro.book_count <= 0 %}
+                                                <a class="text-decoration-none" href="{% url 'add_cart' pro.id %}">
+                                                    <button class="btn pbtn disabled">Add to Cart<span class="">
+                                                     <i class="fa-solid fa-cart-plus"></i>
+                                                 </span></button>
+                                                 </a>
+                                                <a href="#" class="text-decoration-none ">
+                                                    <button class="btn pbtn disabled">Buy Now <span class="">
+                                                     <i class="fa-solid fa-bag-shopping"></i>
+                                                 </span></button>
+                                                 </a>
+                         
+                                                {% else %}
+                                                {% if in_cart%}
+                                               
+                                                    <button class="btn pbtn ">Already in Cart<span class="">
+                                                     <i class="fa-solid fa-cart-plus"></i>
+                                                 </span></button>
+                                                 
+                                                {% else %}
+                                                <a class="text-decoration-none" href="{% url 'add_cart' pro.id %}">
+                                                    <button class="btn pbtn ">Add to Cart<span class="">
+                                                     <i class="fa-solid fa-cart-plus"></i>
+                                                 </span></button>
+                                                 </a>
+                                                {% endif %}
+                                               
+                                                <a href="#" class="text-decoration-none ">
+                                                   <button class="btn pbtn ">Buy Now <span class="">
+                                                    <i class="fa-solid fa-bag-shopping"></i>
+                                                </span></button>
+                                                </a>
+                                                {% endif %}
+                                                   <button class="btn pbtn">Add to Wishlist <span class="">
+                                                    <i class="fa-solid fa-heart"></i>
+                                                    </span></button>
+                                                </div>
+                                            </div>               
+                                                </span>
+                                        </div>
+                                        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'scriptzoom.js' %}">
+
+</script>
+{% endfor %}
+{% endblock %}

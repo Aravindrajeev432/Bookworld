@@ -1,0 +1,149 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block banner %}
+    <div class="container-fluid ">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10  ">
+                <div class="row">
+                    <div class="col-md-12  col-12">
+                        <div class="row">
+                            <img src="{% static 'cart-header.jpeg' %}" class="img-fluid ratio ratio-21x9">
+                                <div class=" col position-absolute h-100  d-flex justify-content-center align-items-center ">
+                                    <span class="text-light fs-3 robotothin ls-4">SHOPPING CART</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    {% endblock %}
+    {% block content %}
+
+        <div class="container  mt-5">
+            {% if not cart_items %}
+                <div class="container  mt-5">
+                    <div class=" row d-flex justify-content-center ">
+                        <div class="col-12 text-center">
+                            <span class="adminhead">CART IS EMPTY
+                                <i class="fa-solid fa-face-frown"></i>
+                            </span>
+                        </div>
+
+                    </div>
+                {% else %}
+
+                    <div class="row d-flex justify-content-center ">
+                        <table class="shopping-cart">
+                            <thead>
+                                <tr>
+                                    <th class="image">&nbsp;</th>
+                                    <th>PRODUCT</th>
+                                    <th>PRICE</th>
+                                    <th>QUANTITY</th>
+                                    <th>TOTAL</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cart_item in cart_items %}
+                                    <tr class="cart-item">
+                                        <td class="image">
+                                            <a href="#" class="text-decoration-none">
+                                                <img src="{{ cart_item.product.image.url }}" alt="!"></a>
+                                            </td>
+                                            <td>
+
+
+                                                <!-- ForeignKey used here -->
+
+                                                <a href="{% url 'cate_view' %}{{ cart_item.product.category.category_name }}/{{ cart_item.product.book_name|slugify }}" class="text-decoration-none text-warning">
+                                                    <b>{{ cart_item.product.book_name }}</b>
+                                                </a>
+                                            </td>
+                                            <td>{{ cart_item.product.price }}</td>
+                                            <td class="qty">
+                                                <div class="input-group-prepend">
+                                                    <a href="{% url 'add_cart' cart_item.product.id %}" class="btn btn-ligth" type="button" id="button-plus">
+                                                        <i class="fa fa-plus"></i>
+                                                    </a>
+                                                    <input type="text" step="1" min="0" name="cart" value="{{ cart_item.quantity }}" title="Qty" class="form-control qty pe-none" size="4">
+                                                        <a href="{% url 'remove_cart' cart_item.product.id %}" class="btn btn-ligth" type="button" id="button-minus">
+                                                            <i class="fa fa-minus"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>{{ cart_item.sub_total }}</td>
+                                                <td class="remove">
+                                                    <a href="{% url 'delete_cart' cart_item.product.id %}" class="btn btn-danger-filled x-remove">×</a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-4 col-sm-8 col-12 mb-3">
+                                    <div class="row">
+                                        <div class="col-12 cart-total">
+                                            <div class="row h-100 align-items-center">
+                                                <span class=" col-9 carttotalhead">Total Price</span>
+                                                <span class=" col-3 carttotalprice text-warning">
+                                                    {{ total }}
+                                                    &nbsp₹</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 cart-total">
+                                            <div class="row h-100 align-items-center">
+                                                <span class=" col-9 carttotalhead">Shipping Cahrge</span>
+                                                <span class=" col-3 carttotalprice text-warning">
+                                                    0 &nbsp ₹</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 cart-total">
+                                            <div class="row h-100 align-items-center text-warning">
+                                                <span class=" col-9 carttotalhead">Total Price</span>
+                                                <span class=" col-3 carttotalprice">
+                                                    {{ total }}
+                                                    &nbsp₹</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-12 d-flex justify-content-center align-items-center">
+
+                                    
+                                        {% if 'first_name' in request.session %}
+                                        <a href="{% url 'checkout' %}" class="text-decoration-none ">
+                                            <button class="btn pbtn ">Buy Now
+                                                <span class="">
+                                                    <i class="fa-solid fa-bag-shopping"></i>
+                                                </span>
+                                            </button>
+                                        </a>
+                                        {% else %}
+                                                <a href="{% url 'login' %}" class="text-decoration-none ">
+                                                    <button class="btn pbtn ">CheckOut <span class="">
+                                                     <i class="fa-solid fa-bag-shopping"></i>
+                                                 </span></button>
+                                                 </a>
+                                                 {% endif %}
+                                                
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    {% endblock %}

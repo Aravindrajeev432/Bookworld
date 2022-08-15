@@ -1,0 +1,185 @@
+{% extends 'admin/adminindex.html' %}
+
+{% block status %}
+
+    <div class="col-md-9 col-sm-12">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="adminheadstatus fs-1 text-secondary">Order
+                                            Management</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="adminheadstatus">Total No of Orders:&nbsp<b>{{ total_orders_count }}</b>
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <span class="adminheadstatus">Orders Pending:&nbsp<b>
+                            <span id="orders_pending">{{ orders_pending }}</span>
+                        </b>
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <span class="adminheadstatus">Orders Deliverd:&nbsp<b><span id="orders_deliverd">{{ orders_deliverd }}</span></b>
+                    </span>
+                </div>
+            </div>
+            <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12"></div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No:</th>
+
+                                    <th scope="col">
+                                        Name</th>
+
+                                    <th scope="col">Adress
+                                    </th>
+                                    <th scope="col">Created Date</th>
+                                    <th scope="col">Products</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in order_details %}
+
+                                    <tr>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>{{ order.user.first_name }}</td>
+                                        <td>{{ order.order.address_line_1  }}
+                                            <br>
+                                            {{order.order.address_line_2}}
+                                            <br>
+                                            {{order.order.zipcode}}
+                                        </td>
+                                        <td>{{ order.created_at  }}</td>
+                                        <td>{{ order.product.book_name }}</td>
+                                        <td>{{ order.product.price }}</td>
+
+                                        <td>
+                                            <form>
+
+                                                <select class="form-control" onchange="ChangeStatus(this.value)">
+
+                                                    {% if order.status == "Processing" %}
+                                                        <option value="Processing/{{ order.order_id }}/{{order.product_id}}" selected>Processing</option>
+                                                        <option value="Shipped/{{ order.order_id }}/{{order.product_id}}">Shipped</option>
+                                                        <option value="Deliverd/{{ order.order_id }}/{{order.product_id}}">Deliverd</option>
+                                                        <option value="Cancelled/{{ order.order_order.id }}/{{order.product_id}}">Cancelled</option>
+                                                    {% elif order.status == "Shipped" %}
+                                                        <option value="Shipped/{{ order.order_id }}/{{order.product_id}}" selected>Shipped</option>
+                                      
+                                                        <option value="Deliverd/{{ order.order_id }}/{{order.product_id}}">Deliverd</option>
+                                                        <option value="Cancelled/{{ order.order_id }}/{{order.product_id}}">Cancelled</option>
+                                                    {% elif order.status == "Deliverd" %}
+                     
+                                                        <option value="Deliverd/{{ order.order_id }}/{{order.product_id}}" selected>Deliverd</option>
+                                                        <option value="Cancelled/{{ order.order_id }}/{{order.product_id}}">Cancelled</option>
+                                                    {% elif order.status == "Cancelled" %}
+                                   
+                                                        <option value="Cancelled/{{ order.order_id }}/{{order.product_id}}" selected>Cancelled</option>
+                                                    {% endif %}
+                                                 
+                                                    
+
+
+                                                </select>
+                                            </form>
+
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 d-flex justify-content-end">
+                        <div class="row d-flex justify-content-end">
+                            <div class="col-md-8 col-sm-8 d-flex justify-content-end">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        {% if not order_details.has_previous %}
+                                            {% else %}
+                                                <li class="page-item text-center">
+                                                    <a class="page-link text-secondary
+                                                                                                border-warning" href="?page={{ order_details.previous_page_number }}">Previous</a>
+                                                </li>
+                                        {% endif %}
+
+                                        <li class="page-item text-secondary
+                                                                                    border-warning disabled">
+                                            <a class="page-link
+                                                                                        text-secondary border-warning
+                                                                                        border-warning" href="#">{{ order_details.number }}
+                                                of
+                                                {{ order_details.paginator.num_pages }}</a>
+                                        </li>
+                                        {% if order_details.has_next %}
+
+
+                                            <li class="page-item border-warning">
+                                                <a class="page-link text-secondary
+                                                                                            border-warning" href="?page={{ order_details.next_page_number }}">Next</a>
+                                            </li>
+                                        {% endif %}
+
+
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <script>
+            function ChangeStatus(str) {
+                st = str.split("/");
+
+                if (st[0] == "Shipped") {
+
+                    console.log(st[0])
+
+                    xhttp.onload = function () {
+                        document.getElementById("orders_pending").innerHTML = this.responseText;
+                        var re = this.responseText
+
+                    }
+                    xhttp.open("GET", "change_order_status/" + str);
+                    xhttp.send();
+                }
+                else if(st[0]=="Deliverd"){
+                    xhttp.onload = function () {
+                        document.getElementById("orders_pending").innerHTML = this.responseText;
+                        var op = parseInt("{{orders_deliverd}}")+1
+                        document.getElementById('orders_deliverd').innerHTML = op
+                        var re = this.responseText
+
+                    }
+                    xhttp.open("GET", "change_order_status/" + str);
+                    xhttp.send();
+                }
+                else if(st[0]=="Cancelled"){
+                   
+                    xhttp.open("GET", "change_order_status/" + str);
+                    xhttp.send();
+                }
+            }
+            const xhttp = new XMLHttpRequest();
+            // xhttp.onload = function() {
+            //     document.getElementById("txtHint").innerHTML = this.responseText;
+            // }
+        </script>
+    {% endblock %}
