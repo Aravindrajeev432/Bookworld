@@ -56,7 +56,7 @@
                                             <br>
                                             {{order.order.address_line_2}}
                                             <br>
-                                            {{order.order.zipcode}}
+                                            {{order.order.zipcode }}
                                         </td>
                                         <td>{{ order.created_at  }}</td>
                                         <td>{{ order.product.book_name }}</td>
@@ -111,14 +111,14 @@
                                     <ul class="pagination">
                                         {% if not order_details.has_previous %}
                                             {% else %}
-                                                <li class="page-item text-center">
+                                                <li class="page-item text-center text-center">
                                                     <a class="page-link text-secondary
                                                                                                 border-warning" href="?page={{ order_details.previous_page_number }}">Previous</a>
                                                 </li>
                                         {% endif %}
 
                                         <li class="page-item text-secondary
-                                                                                    border-warning disabled">
+                                                                                    border-warning disabled text-center">
                                             <a class="page-link
                                                                                         text-secondary border-warning
                                                                                         border-warning" href="#">{{ order_details.number }}
@@ -128,7 +128,7 @@
                                         {% if order_details.has_next %}
 
 
-                                            <li class="page-item border-warning">
+                                            <li class="page-item border-warning text-center">
                                                 <a class="page-link text-secondary
                                                                                             border-warning" href="?page={{ order_details.next_page_number }}">Next</a>
                                             </li>

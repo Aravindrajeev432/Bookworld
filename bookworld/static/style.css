@@ -3,9 +3,19 @@ body{
     padding:0px;
     background:#666666;
 }
+.form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+} 
+.btn{
+    border-radius:0px;
+}
 .robotothin{
     font-family:RobotoThin;
 
+}
+.roboto{
+    font-family:Roboto;
 }
 .ls-4{
     letter-spacing:2px;
@@ -400,4 +410,31 @@ body {
   to {
     background-position: 200% center;
   }
+}
+
+
+.form-control{
+    text-align:center;
+    color:#7e858c;
+}
+.form-control:focus{
+    outline-width: 0px;
+    letter-spacing: 0px;
+    background: transparent;
+    outline: none !important;
+    border-color: #252c33;
+    box-shadow: 0 0 0 0.2rem #6c757d;
+    
+  }
+  .form-control::placeholder{
+    text-align: center;
+    letter-spacing: 3px;
+    color:#7e858c;
+  }
+  .form-control:focus::placeholder {
+      
+      background: transparent;
+  }
+#ep{
+    transition-duration:.4s;
 }

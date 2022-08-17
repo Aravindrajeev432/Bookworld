@@ -35,16 +35,17 @@ def product_view(request,st,bname):
 def cat_view(request,slug):
   
     # cat =Category.objects.raw('SELECT id FROM category_category where category_name= %s',[slug])
-    cat = Category.objects.filter(category_name__iexact=slug).all()
-    print(cat)
-    for i in cat:
-        cat_id=i.id
+    cat_active = Category.objects.values().filter(category_name__iexact=slug)
+    
+    print(cat_active)
+    for i in cat_active:
+        cat_id=i['id']
     product = Product.objects.filter(category_id=cat_id).all()
     cat = Category.objects.all()
     paginator = Paginator(product,6)
     page = request.GET.get('page')
     paged_products =paginator.get_page(page)
-    return render(request,'landing.html',{'category':cat,'pro':paged_products})
+    return render(request,'landing.html',{'category':cat,'pro':paged_products,'cat_active':cat_active})
 def cate(request):
     pass
 def search(request):

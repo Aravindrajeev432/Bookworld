@@ -34,7 +34,7 @@
                         {% csrf_token %}
                         <div class="input-group mb-3">
                             <input type="text" name="category_name" class="form-control" placeholder="Add new Category" aria-label="search" aria-describedby="button-addon2">
-                                <button class="btn btn-outline-sucsess bg-secondary text-warning" type="submit" id="button-addon2">Add</button>
+                                <button class="btn btn-outline-sucsess bg-secondary text-warning rounded-0" type="submit" id="button-addon2">Add</button>
                             </div>
                         </form>
 
@@ -60,7 +60,7 @@
                     <td>{{ct.category_name}}</td>
                     <td>
                       <a href="delete_cat/{{ct.id}}">
-                      <button class="btn btn-danger">Delete</button>
+                      <button class="btn btn-danger rounded-0">Delete</button>
                     </a>
                     </td>
                     

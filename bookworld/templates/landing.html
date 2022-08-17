@@ -18,21 +18,57 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 gen">
                         <ul>
-                            <li class="active">
+                        {% if not cat_active %}
+                            <li class="">
                                 <a href="{% url 'index' %}" class="text-decoration-none
                                                                 text-warning">
                                     <span class="litext">SEE ALL</span>
                                 </a>
                             </li>
-
+                            
                             {% for cat in category %}
+                           
                                 <li class="text-secondary">
+                                    
+                                    <a href="{% url 'cate_view' %}{{ cat.category_name }}" class="text-decoration-none text-secondary">
+                                        <span class="litext ">{{ cat.category_name }}</span>
+                                    </a>
+                                </li>
+                            
+                                
+                            {% endfor %}
+                            
+
+
+                        {% else %}
+                            <li class="">
+                                <a href="{% url 'index' %}" class="text-decoration-none text-secondary
+                                                                ">
+                                    <span class="litext">SEE ALL</span>
+                                </a>
+                            </li>
+                            {% for i in cat_active %}
+                            {% for cat in category %}
+                            {%if i.id is cat.id %}
+                                <li class="text-secondary">
+                                    
+                                    <a href="{% url 'cate_view' %}{{ cat.category_name }}" class="text-decoration-none text-secondary">
+                                        <span class="litext text-warning">{{ cat.category_name }}</span>
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="text-secondary">
+                                    
                                     <a href="{% url 'cate_view' %}{{ cat.category_name }}" class="text-decoration-none text-secondary">
                                         <span class="litext">{{ cat.category_name }}</span>
                                     </a>
                                 </li>
-
+                                {% endif %}
                             {% endfor %}
+                            {% endfor %}
+                        {% endif %}
+                            
+                       
                         </ul>
                     </div>
                 </div>
@@ -40,13 +76,13 @@
             </div>
         {% endblock %}
         {% block content %}
-            <div class="container-fluid">
+            <div class="container-fluid p-4">
                 <div class="row d-flex">
                     {% if pro %}
 
                         {% for product in pro %}
 
-                            <div class="col-md-4 mb-3 col-sm-6">
+                            <div class="col-md-4 mb-3 col-sm-6 mb-4">
                                 <div class="col-sm-12 onecard">
 
                                     <div class="row onecardrow">
@@ -132,7 +168,7 @@
                                                                         
                                                                             <button class="btn pbtn border
                                                                                                                                 bg-transparent border-warning
-                                                                                                                                disabled">Out Of 
+                                                                                                                                disabled rounded-0">Out Of 
                                                                                                                                 Stock<span class="">
                                                                                     <i class="fa-solid
                                                                                                                                                 fa-cart-plus"></i>
@@ -149,7 +185,7 @@
                                                                                                                                                                                                         </span> -->
                                                                         <a class="text-decoration-none" href="{% url 'add_cart' product.id %}">
                                                                             <button class="btn pbtn border
-                                                                                                                                bg-transparent border-warning">Add
+                                                                                                                                bg-transparent border-warning rounded-0">Add
                                                                                                                                 to Cart<span class="">
                                                                                     <i class="fa-solid
                                                                                                                                                 fa-cart-plus"></i>

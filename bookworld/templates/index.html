@@ -9,6 +9,8 @@
         {% load static %}
 
         {% block meta %}
+        {% block script %}
+        {% endblock %}
         {% endblock %}
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
         <link rel="stylesheet" href="{% static 'all.css' %} ">
@@ -55,7 +57,7 @@
     </div>
     <div class="lbox">
         <a href="{%url 'register' %}" class="text-decoration-none text-white">
-            <i class="fa-solid fa-lock"></i>&nbsp;&nbsp;  Register
+            <i class="fa-solid fa-address-card"></i>&nbsp;&nbsp;  Register
         </a>
     </div>
     {% else %}
@@ -83,16 +85,24 @@
                             <li class="nav-item">
                                 <a class="nav-link actived " aria-current="page" href="{% url 'index' %}">Home</a>
                             </li>
+                            {% if 'first_name' not in request.session %}
+                            {% else%}
+                            <li class="nav-item">
+                                <a class="nav-link " href="{% url 'profile' request.session.uid %}">Profile</a>
+                            </li>
+                            {% endif %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{%  url 'order_history' %}">Orders</a>
                             </li>
-                            
+                        
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Wishlist</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link " href="{% url 'cart' %}">Cart</a>
                             </li>
+                        </li>
+                        
                             
                                
                               
@@ -101,8 +111,8 @@
             
                         </ul>
                         <form class="d-flex" action="{% url 'search' %}" method='GET'>
-                            <input type="search" name="search" class="form-control" placeholder="Search by book name" aria-label="search" aria-describedby="button-addon2">
-                                            <button class="btn btn-outline-sucsess bg-secondary text-warning" type="submit" id="button-addon2">Search</button>
+                            <input type="search" name="search" class="form-control rounded-0" placeholder="Search by book name" aria-label="search" aria-describedby="button-addon2">
+                                            <button class="btn btn-outline-sucsess bg-secondary text-warning rounded-0" type="submit" id="button-addon2">Search</button>
                                     
                     
                         </form>

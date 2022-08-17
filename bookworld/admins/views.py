@@ -63,19 +63,42 @@ def dashboard(request):
         return redirect('adminlogin')
     usercount= Account.objects.filter(~Q(is_admin=True)).count()
     p_count = Product.objects.count()
+    products = Product.objects.all()
     # order_graph=Order.objects.aggregate(Sum('order_total'))
     # order_graph = OrderProduct.objects.all()
     order_graph =Order.objects.filter().values('created_at__date').order_by('created_at__date')[:7].annotate(sum=Sum('order_total'))
     order_status_graph =OrderProduct.objects.filter().values('status').annotate(count=Count('status'))
     order_product_count_graph = OrderProduct.objects.filter().values('quantity').order_by('created_at__date')[:7].annotate(count=Count('quantity'))
-                                                                                                                          
+    order_cat_graph = OrderProduct.objects.filter().values('product_id').order_by('quantity').annotate(count=Count('product_id'))
+    print("--**--")
+ 
+    print("--**--")
     print("--------")
-    print(order_product_count_graph)
+    cat_count=[]
+    for i in order_cat_graph:
+        id=i['product_id']
+        pcat=Product.objects.get(id=id)
+        cat_count.append(pcat.category.category_name)
+        
+        # for k in products:
+        #     c=k.id
+        #     print(k.c)
+            # print(id.k.category_name)
+    cat_dict={}
+    c= Category.objects.all()   
+        
+    for c_count in c:
+        # print(c_count.category_name)
+        # print(cat_count.count(c_count.category_name))  
+        cat_dict[c_count.category_name] = cat_count.count(c_count.category_name)
+    print(cat_dict)
+    # print(order_cat_graph)
+
     print("-------")
     # print(order_graph)
     # for i in order_graph:
     #     print(i['sum'])    
-    return render(request, 'admin/dashboard.html',{'usercount':usercount,'p_count':p_count,'order_total_graph':order_graph,'order_status_graph':order_status_graph})
+    return render(request, 'admin/dashboard.html',{'usercount':usercount,'p_count':p_count,'order_total_graph':order_graph,'order_status_graph':order_status_graph,'cat_dict':cat_dict})
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -241,11 +264,19 @@ def edit_user(request, id):
 def block_user(request, id):
     if 'admin' not in request.session:
         return redirect('adminlogin')
+    print("***************")
     b_user = Account.objects.get(id=id)
     print(b_user.is_blocked)
     b_user.is_blocked=True
     b_user.save()
     print(b_user.is_blocked)
+    return JsonResponse(
+                    {
+                        'success':True},
+
+                                safe=False
+                            
+                            )
     return redirect(users)
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def unblock_user(request, id):
@@ -261,6 +292,13 @@ def delete_user(request, id):
         return redirect('adminlogin')
     del_user = Account.objects.get(id=id)
     del_user.delete()
+    return JsonResponse(
+                    {
+                        'success':True},
+
+                                safe=False
+                            
+                            )
     return redirect(users)
 # def sortbyfname(request):
     

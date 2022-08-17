@@ -30,7 +30,7 @@
                 <div class="container  mt-5">
                     <div class=" row d-flex justify-content-center ">
                         <div class="col-12 text-center">
-                            <span class="adminhead">CART IS EMPTY
+                            <span class="adminhead">YOUR <i class="fa-solid fa-cart-shopping"></i> CART IS EMPTY
                                 <i class="fa-solid fa-face-frown"></i>
                             </span>
                         </div>
@@ -72,7 +72,7 @@
                                                     <a href="{% url 'add_cart' cart_item.product.id %}" class="btn btn-ligth" type="button" id="button-plus">
                                                         <i class="fa fa-plus"></i>
                                                     </a>
-                                                    <input type="text" step="1" min="0" name="cart" value="{{ cart_item.quantity }}" title="Qty" class="form-control qty pe-none" size="4">
+                                                    <input type="text" step="1" min="0" max="3" name="cart" value="{{ cart_item.quantity }}" title="Qty" class="form-control qty pe-none" size="4">
                                                         <a href="{% url 'remove_cart' cart_item.product.id %}" class="btn btn-ligth" type="button" id="button-minus">
                                                             <i class="fa fa-minus"></i>
                                                         </a>

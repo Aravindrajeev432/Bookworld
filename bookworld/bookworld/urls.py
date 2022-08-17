@@ -30,6 +30,8 @@ urlpatterns = [
     path('product/',include('store.urls')),
     path('cart/',include('carts.urls')),
     path('orders/',include('orders.urls')),
+    path('profile/<int:id>',views.profile,name='profile'),
+    path('editprofile/<int:id>',views.editprofile,name='editprofile'),
     
 
 ]+static(settings.MEDIA_URL,document_root=MEDIA_ROOT)

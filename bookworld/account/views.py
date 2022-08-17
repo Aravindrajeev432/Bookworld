@@ -81,6 +81,7 @@ def register(request):
         password = request.POST['password1'] 
         user = Account(first_name = first_name, last_name = last_name, Phone_number = phone, email = email, password = password)
         user.save()
+        return redirect(user_login)
     return render(request, 'register.html')
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def logout(request):

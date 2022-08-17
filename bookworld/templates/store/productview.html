@@ -62,8 +62,8 @@
                                     </span>
                             </div>
                             </div>
-                        <div class="row">
-                            <div class="col-12">
+                        <div class="row pr-5">
+                            <div class="col-12 pr-5">
                                 <span class="text-secondary productdescription">
                                         {{pro.description}}                 
                                     </span>
@@ -105,25 +105,25 @@
                                                 {% else %}
                                                 {% if in_cart%}
                                                
-                                                    <button class="btn pbtn ">Already in Cart<span class="">
+                                                    <button class="btn pbtn  rounded-0">Already in Cart<span class="">
                                                      <i class="fa-solid fa-cart-plus"></i>
                                                  </span></button>
                                                  
                                                 {% else %}
                                                 <a class="text-decoration-none" href="{% url 'add_cart' pro.id %}">
-                                                    <button class="btn pbtn ">Add to Cart<span class="">
+                                                    <button class="btn pbtn  rounded-0">Add to Cart<span class="">
                                                      <i class="fa-solid fa-cart-plus"></i>
                                                  </span></button>
                                                  </a>
                                                 {% endif %}
                                                
                                                 <a href="#" class="text-decoration-none ">
-                                                   <button class="btn pbtn ">Buy Now <span class="">
+                                                   <button class="btn pbtn  rounded-0">Buy Now <span class="">
                                                     <i class="fa-solid fa-bag-shopping"></i>
                                                 </span></button>
                                                 </a>
                                                 {% endif %}
-                                                   <button class="btn pbtn">Add to Wishlist <span class="">
+                                                   <button class="btn pbtn rounded-0">Add to Wishlist <span class="">
                                                     <i class="fa-solid fa-heart"></i>
                                                     </span></button>
                                                 </div>
