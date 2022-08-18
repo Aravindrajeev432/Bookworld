@@ -32,6 +32,7 @@ urlpatterns = [
     path('orders/',include('orders.urls')),
     path('profile/<int:id>',views.profile,name='profile'),
     path('editprofile/<int:id>',views.editprofile,name='editprofile'),
+    path('add_address/<int:id>',views.add_address,name='add_address'),
     
 
 ]+static(settings.MEDIA_URL,document_root=MEDIA_ROOT)

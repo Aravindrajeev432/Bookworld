@@ -123,28 +123,65 @@
                                                            <span class="text-muted"> Default Home Address</span>
 
                                                         </div>
+                                                        
+                                                    <form action=" " method="POST">
+                                                        {% csrf_token %}
                         <div class="form-outline mb-2">
-                            <input type="text" name="address_line_1" id="form7Example4" class="form-control"  required/>
-                            <label class="form-label" for="form7Example4">Address Line 1</label>
+                            <label class="form-label text-muted" for="form7Example4">Address Line 1</label>
+                            <input type="text" name="address_line_1" id="address_line_1_id" class="form-control rounded-0"  required/>
+                            
                           </div>
                           <div class="form-outline mb-2">
-                            <input type="text" name="address_line_2" id="form7Example4" class="form-control"  required/>
-                            <label class="form-label" for="form7Example4">Address Line 2</label>
+                            <label class="form-label text-muted" for="form7Example4">Address Line 2</label>
+                            <input type="text" name="address_line_2" id="address_line_2_id" class="form-control rounded-0"  required/>
+                            
+                          </div>
+                          <!-- <div class="form-outline mb-2">
+                            <input type="text" name="country" id="country_id" class="form-control rounded-0" required/>
+                            <label class="form-label" for="form7Example6">Country</label>
                           </div>
                           
                           <div class="form-outline mb-2">
-                            <input type="text" name="state" id="form7Example6" class="form-control" required/>
+                            <input type="text" name="state" id="state_id" class="form-control rounded-0" required/>
                             <label class="form-label" for="form7Example6">State</label>
                           </div>
                           <div class="form-outline mb-2">
-                            <input type="text" name="city" id="form7Example6" class="form-control" required/>
+                            <input type="text" name="city" id="city_id" class="form-control rounded-0" required/>
                             <label class="form-label" for="form7Example6">City</label>
                           </div>
                           <div class="form-outline mb-2">
-                            <input type="number" name="zipcode" id="form7Example6" class="form-control" required/>
+                            <input type="number" name="zipcode" id="zipcode_id" class="form-control rounded-0" required/>
                             <label class="form-label" for="form7Example6">Zipcode</label>
+                          </div> -->
+                          <div class="form-row">
+                            <div class=" form-group col-md-4 col-sm-12">
+                                <label class="form-label text-muted" for="form7Example6">Country</label>
+                                <input type="text" name="country" id="country_id" class="form-control rounded-0" required/>
+                           
+                            </div>
+                            <div class=" form-group col-md-4 col-sm-12">
+                                <label class="form-label text-muted" for="form7Example6">State</label>
+                                <input type="text" name="state" id="state_id" class="form-control rounded-0" required/>
+                                
+                            </div>
+                            <div class=" form-group col-md-4 col-sm-12">
+                                <label class="form-label text-muted" for="form7Example6">City</label>
+                                <input type="text" name="city" id="city_id" class="form-control rounded-0" required/>
+                               
+                            </div>
                           </div>
-  
+                          <div class="form-row">
+                            <div class="form-group col-md-3 col-sm-4 col-12">
+                                <label class="form-label text-muted" for="form7Example6">Zipcode</label>
+                                <input type="number" name="zipcode" id="zipcode_id" class="form-control rounded-0" required/>
+                           
+                            </div>
+                          </div>
+                          <div class="form-outline text-center  mb-4">
+                            <input type="button" class="btn rounded-0 text-warning bg-secondary" onclick="checkAddress()" value="S u b m i t">
+                        </form>
+                         </div>
+                          
                             </div>
                         </div>
 
@@ -160,6 +197,104 @@
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             
 <script>
+
+function checkAddress(){
+    var address_line_1 = $('#address_line_1_id').val()
+    var address_line_2 = $('#address_line_2_id').val()
+    var country = $('#country_id').val()
+    var state = $('#state_id').val()
+    var city = $('#city_id').val()
+    var zipcode = $('#zipcode_id').val()
+    if(address_line_1.length ==0 ||address_line_2.length == 0 || country.length == 0 || state.length == 0 || city.length == 0 || zipcode.length == 0 ){
+
+
+        swal("Please fill all fields", {
+                       icon: "warning",
+                       timer: 2000,
+                     })
+    }
+    else{
+        addAddress()
+    }
+
+
+}
+
+function addAddress(){
+    var address_line_1 = $('#address_line_1_id').val()
+    var address_line_2 = $('#address_line_2_id').val()
+    var country = $('#country_id').val()
+    var state = $('#state_id').val()
+    var city = $('#city_id').val()
+    var zipcode = $('#zipcode_id').val()
+
+    swal({
+            title: "Are you sure?",
+            text: "Wants to Update Home Address" ,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+                 }).then((willDelete) => {
+                   if (willDelete) {
+                    //  swal("Home Address Updated successfully", {
+                    //    icon: "success",
+                    //    timer: 2000
+                    //  })
+                     
+                     
+                      $.ajax({
+                        type:'POST',
+                        dataType: 'json',
+                       url: "{% url 'add_address' user.id  %}",
+                       data: {
+                         'address_line_1':address_line_1,
+                         'address_line_2':address_line_2,
+                         'country':country,
+                         'state':state,
+                         'city':city,
+                         'zipcode':zipcode,
+                         csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                       },
+                       
+                       success: (response) => {
+                         if (response) {
+                            swal("Home Address Updated successfully", {
+                       icon: "success",
+                       button:false,
+                       timer: 2000,
+                     })
+                        //    location.reload();
+                        setTimeout(function(){
+                            location.reload();
+                   
+                
+
+                },2000)
+                         }
+                         console.log(response)
+                       },
+                     }); 
+                       
+                   } else {
+                    swal("Home Address Updated successfully", {
+                       icon: "success",
+                       timer: 2000,
+                     })
+                     console.log("failed")
+                   }
+                 });
+               
+        
+
+
+
+
+}
+
+
+
+
+
     var submitError = document.getElementById('btn-Error')
     function deP(){
         console.log("show")
@@ -265,8 +400,6 @@ function validateForm(){
                
                  
                     }
-
-
 
 
 

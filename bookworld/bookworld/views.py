@@ -3,7 +3,7 @@ import email
 from itertools import product
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,JsonResponse
-from account.models import Account
+from account.models import Account,Address
 from orders.models import OrderProduct,Order
 from store.models import Product
 from category.models import Category
@@ -46,7 +46,7 @@ def homepage(request):
         return render(request,'home.html')
     else:
         return redirect('/')
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def profile(request,id):
     
     user_details = Account.objects.get(id=id)
@@ -96,7 +96,52 @@ def profile(request,id):
 
     
     return render(request,'user_profile.html',context)
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def add_address(request,id):
+    uid = request.session['uid']
+    
+    if request.method == 'POST':
+        address_line_1 = request.POST['address_line_1']
+        address_line_2 = request.POST['address_line_2']
+        country = request.POST['country']
+        state = request.POST['state']
+        city = request.POST['city']
+        zipcode = request.POST['zipcode']
+        print(address_line_1)
+        print(address_line_2)
+        print(country)
+        print(state)
+        print(city)
+        print(zipcode)
+       
+        try :
+            user_address = Address.objects.get(user_id=uid)
+            user_address.address_line_1 = address_line_1
+            user_address.address_line_2 = address_line_2
+            user_address.country = country
+            user_address.state = state
+            user_address.city = city
+            user_address.zipcode = zipcode
+            user_address.save() 
+        except:
+            user = Address(address_line_1 = address_line_1, address_line_2 = address_line_2,user_id = uid, country = country, state = state, city = city,zipcode = zipcode)
+            user.save()
+        
+        
+        return JsonResponse(
+                    {
+                        'success':True},
 
+                                safe=False
+                            
+                            )
+    return JsonResponse(
+                    {
+                        'success':False},
+
+                                safe=False
+                            
+                            )
 
 def editprofile(request,id):
     user_edit = Account.objects.get(id=id)

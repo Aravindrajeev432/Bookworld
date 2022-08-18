@@ -42,7 +42,7 @@ def adminlogin(request):
                             )
         else:
                 return JsonResponse(
-                {'success':False
+                {'success':True
                 },
                 safe=False
             )           

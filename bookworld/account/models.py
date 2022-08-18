@@ -56,3 +56,14 @@ class Account(AbstractBaseUser):
         return self.is_admin
     def has_module_perms(self,add_label):
         return True
+class Address(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    address_line_1 = models.CharField(max_length=300)
+    address_line_2 = models.CharField(max_length=300)
+    country = state = models.CharField(max_length=200)
+    state = models.CharField(max_length=200)
+    city = models.CharField(max_length=200)
+    zipcode = models.BigIntegerField()
+    
+    def __str__(self):
+        return self.address_line_1
