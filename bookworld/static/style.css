@@ -438,3 +438,7 @@ body {
 #ep{
     transition-duration:.4s;
 }
+.otpbox{
+    opacity:0;
+    transition-duration:.6s;
+}

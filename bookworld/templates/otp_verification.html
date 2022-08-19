@@ -10,46 +10,32 @@
                         <div class="row d-flex justify-content-center">
 
                             <div class="row d-flex justify-content-center">
-                                <form action="/" method="POST" id="logform">
+                                <span class="adminpanelsubhead">OTP Verfication</span>
+                            </div>
+                            
+                            <div class="row d-flex justify-content-center mt-3">
+                                <span class="adminhead fs-6 text-center">an OTP has been sended to your number
+                                    <br>{{phone_number}}
+                                </span>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="otpbox" id="otpverificationbox"  ">
+                                <form class="d-flex" action="{% url 'otp_verification_send' %}" method='POST'>
                                     {% csrf_token %}
-                                    <div class="row d-flex justify-content-center">
-                                        <span class="adminpanelsubhead">LOG IN</span>
-                                    </div>
-                                    <div class="row d-flex justify-content-center mt-4">
-                                    <input type="email" name="email" id="email_id" placeholder="Email" class="formcontrol bg-transparent" autocomplete="off">
-                                    </div>
-                                    <div class="row d-flex justify-content-center mt-4">
-                                        <input type="password" name="password" id="password_id" placeholder="Password" class="formcontrol bg-transparent" autocomplete="off"></div>
-                                    </div>
-                                        <div class="row d-flex justify-content-center mt-4">
-                                            <div class="col-4 d-flex justify-content-center">
-                                                <input type="submit" class="btn border border-warning bg-secondary text-warning" id="login_submit" value="Submit"></div>
-                                                
-                                            </form>
-                                        </div>
-                                        <div class="row d-flex justify-content-center mt-4">
-                                            <div class="col-12 d-flex justify-content-center">
-                                            <h3 class="text-danger robotothin" style="display:none ;" id="warning">Invalid Credential</h3>
-                                            </div>
+                                    <input type="number" name="otp" class="form-control rounded-0"  >
+                                                    <button class="btn btn-outline-sucsess bg-secondary text-warning rounded-0" type="submit" id="button-addon2">Verify</button>
+                                            
+                            
+                                </form>
+                            </div>
+                        </div>
+                                      
+                                        
 
-                                        </div>
-                                        <div class="row d-flex justify-content-center mt-4">
-                                            <div class="col-12 d-flex justify-content-end">
-                                            <h3 class="text-warning fs-6 text robotothin" style="display:block;cursor: pointer ;" id="warning" onclick="showOtpbox()">Log in with OTP</h3>
-                                            </div>
+                                       
 
-                                        </div>
-                                        <div class="row">
-                                        <div class="otpbox" id="otpbox" style="opacity: 0; overflow: hidden; ">
-                                        <form class="d-flex" action="{% url 'otp_verification_send' %}" method='POST'>
-                                            {% csrf_token %}
-                                            <input type="number" name="otp_phone" class="form-control rounded-0"  >
-                                                            <button class="btn btn-outline-sucsess bg-secondary text-warning rounded-0" type="submit" id="button-addon2">Send OTP</button>
-                                                    
-                                    
-                                        </form>
-                                    </div>
-                                </div>
+                                      
+                                   
                                         
                                 
                         </div>

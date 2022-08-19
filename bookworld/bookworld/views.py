@@ -48,11 +48,15 @@ def homepage(request):
         return redirect('/')
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def profile(request,id):
-    
+  
     user_details = Account.objects.get(id=id)
     print(id)
-
-    
+    try:
+        user_address = Address.objects.get(user_id=id)
+        print(user_address)
+        print(user_address.address_line_2)
+    except:
+        user_address = " "
     try:
         f_cat=[]
         fav_cat= OrderProduct.objects.filter(user=id).values('product_id')
@@ -92,6 +96,7 @@ def profile(request,id):
         'user':user_details,
         'fav_category' : fav_category_name,
         'books_buyed': books_buyed,
+        'user_address':user_address,
     }
 
     

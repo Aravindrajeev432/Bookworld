@@ -128,12 +128,12 @@
                                                         {% csrf_token %}
                         <div class="form-outline mb-2">
                             <label class="form-label text-muted" for="form7Example4">Address Line 1</label>
-                            <input type="text" name="address_line_1" id="address_line_1_id" class="form-control rounded-0"  required/>
+                            <input type="text" value="{{user_address.address_line_1}}" name="address_line_1" id="address_line_1_id" class="form-control rounded-0"  required/>
                             
                           </div>
                           <div class="form-outline mb-2">
                             <label class="form-label text-muted" for="form7Example4">Address Line 2</label>
-                            <input type="text" name="address_line_2" id="address_line_2_id" class="form-control rounded-0"  required/>
+                            <input type="text" value="{{user_address.address_line_2}}" name="address_line_2" id="address_line_2_id" class="form-control rounded-0"  required/>
                             
                           </div>
                           <!-- <div class="form-outline mb-2">
@@ -156,24 +156,24 @@
                           <div class="form-row">
                             <div class=" form-group col-md-4 col-sm-12">
                                 <label class="form-label text-muted" for="form7Example6">Country</label>
-                                <input type="text" name="country" id="country_id" class="form-control rounded-0" required/>
+                                <input type="text" value="{{user_address.country}}" name="country" id="country_id" class="form-control rounded-0" required/>
                            
                             </div>
                             <div class=" form-group col-md-4 col-sm-12">
                                 <label class="form-label text-muted" for="form7Example6">State</label>
-                                <input type="text" name="state" id="state_id" class="form-control rounded-0" required/>
+                                <input type="text" value="{{user_address.state}}" name="state" id="state_id" class="form-control rounded-0" required/>
                                 
                             </div>
                             <div class=" form-group col-md-4 col-sm-12">
                                 <label class="form-label text-muted" for="form7Example6">City</label>
-                                <input type="text" name="city" id="city_id" class="form-control rounded-0" required/>
+                                <input type="text" value="{{user_address.city}}" name="city" id="city_id" class="form-control rounded-0" required/>
                                
                             </div>
                           </div>
                           <div class="form-row">
                             <div class="form-group col-md-3 col-sm-4 col-12">
                                 <label class="form-label text-muted" for="form7Example6">Zipcode</label>
-                                <input type="number" name="zipcode" id="zipcode_id" class="form-control rounded-0" required/>
+                                <input type="number" value="{{user_address.zipcode}}" name="zipcode" id="zipcode_id" class="form-control rounded-0" required/>
                            
                             </div>
                           </div>

@@ -1,9 +1,10 @@
+from multiprocessing import context
 from django.http import HttpResponse,JsonResponse
 from django.shortcuts import render,redirect
 from django.views.decorators.cache import cache_control
 from django.contrib import messages,auth
 from django.contrib.auth.decorators import login_required
-
+from .mixins import MessageHandler
 from carts.views import _cart_id
 from carts.models import Cart,CartItem
 from .models import Account
@@ -88,3 +89,25 @@ def logout(request):
     auth.logout(request)
     request.session.flush()
     return redirect("/")
+
+
+def otp_verfication_send(request):
+    if request.method == 'POST':
+        otp_number = request.POST['otp_phone']
+        
+        
+        print(otp_number)
+        
+        if Account.objects.filter(Phone_number = otp_number).exists():
+            print("succes")
+        else:
+            print("fail")
+        
+        
+        
+        context={
+            'phone_number':otp_number,
+            
+        }
+        return render(request,'otp_verification.html',context)
+    return redirect(user_login)
