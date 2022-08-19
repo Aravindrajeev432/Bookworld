@@ -4,7 +4,7 @@ from django.shortcuts import render,redirect
 from django.views.decorators.cache import cache_control
 from django.contrib import messages,auth
 from django.contrib.auth.decorators import login_required
-from .mixins import MessageHandler
+# from .mixins import MessageHandler
 from carts.views import _cart_id
 from carts.models import Cart,CartItem
 from .models import Account
