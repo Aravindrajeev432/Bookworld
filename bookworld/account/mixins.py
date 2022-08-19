@@ -5,6 +5,7 @@ from twilio.rest import Client
 
 account_sid = ''
 auth_token =  ''
+#gitignore
 
 
 class MessageHandler:
